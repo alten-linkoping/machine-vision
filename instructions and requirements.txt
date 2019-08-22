@@ -1,0 +1,18 @@
+1. Read the instructions
+2. Document where to find user stories and epics (e.g. physical board, Jira (ask Alten IT to set it up))
+3. Establish Way of Working, including how to run automated tests and CI. Document this. Suggested sprint lenght: 1 week. If Github tools or add-ons needs to be added, talk to a manager.
+4. Define epics and user-stories for  
+    I. Select a dataset, e.g. one of the following:
+       - https://www.cityscapes-dataset.com/
+       - https://bdd-data.berkeley.edu/index.html
+       - https://waymo.com/open/data/
+    II. Create an application that can visualize/play sequences from the dataset and overlays
+    III. Train a network to identify cars in the dataset
+    IV. Modify application to use network to identify cars in the sequences and display the object as an overlay on the sequence
+    V. Add more functionality, either by adding more features in the current network or by adding new networks
+
+
+The following tech suggestions apply:
+- Training networks: Python
+- Algorithmic core: C++
+- Application front-end: Should be run in web browser, technical decicions are to be made accordingly.
