@@ -28,3 +28,5 @@ This is a web application that visualizes object detections of cars.
 
 * Dataset: [Waymo](https://waymo.com/open/data/)
 
+* Task management [Trello](https://trello.com/en)
+
