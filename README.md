@@ -30,3 +30,6 @@ This is a web application that visualizes object detections of cars.
 
 * Task management [Trello](https://trello.com/en)
 
+* Code Review for Git [Gerrit](https://gerrit-review.googlesource.com/Documentation/)
+
+
