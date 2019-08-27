@@ -3,6 +3,8 @@ const fs = require('fs')
 const path = require('path')
 const app = express()
 
+const addon = require('./build/Release/addon');
+
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/', function(req, res) {
@@ -45,4 +47,5 @@ app.get('/video', function(req, res) {
 
 app.listen(3000, function () {
   console.log('Listening on port 3000!')
+  console.log(addon.sum1());
 })
