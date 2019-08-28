@@ -24,7 +24,7 @@ This is a web application that visualizes object detections of moving objects.
 
 * Libray for image processing algorithms: [OpenCV](https://opencv.org/)
 
-* Dataset: [Multiple Object Tracking Benchmark](https://motchallange.net/data/MOT17/)
+* Dataset: [Multiple Object Tracking Benchmark](https://motchallenge.net/data/MOT17/)
 
 * Task management: [Jira](https://support.alten.se/projects/MAC/summary)
 
