@@ -16,7 +16,7 @@ This is a web application that visualizes object detections of moving objects.
 
 ## Technological specification:
 
-* Client-side: [React](https://reactjs.org/) and [Redux](https://redux.js.org/)
+* Client-side: JavaScript, HTML, CSS 
 
 * Server-side: [Flask](http://flask.pocoo.org/)
 
