@@ -2,17 +2,15 @@
 
 ## Functional specification:
 
-This is a web application that visualizes object detections of cars. 
+This is a web application that visualizes object detections of moving objects. 
 
 ###  features
 
 * Create an application that can visualize/play sequences from the dataset and overlays
 
-* Train a network to identify cars in the dataset
+* Modify application to use network to identify moving objects in the sequences and display the object as an overlay on the sequence
 
-* Modify application to use network to identify cars in the sequences and display the object as an overlay on the sequence
-
-* Add more functionality, either by adding more features in the current network or by adding new networks
+* Add more functionality, either by adding more features in the current network or by adding a trained neural network.
 
 
 
@@ -24,11 +22,11 @@ This is a web application that visualizes object detections of cars.
 
 * Algorithmic core: [C++](http://www.cplusplus.org/)
 
-* Training networks: [Python](https://www.python.org/)
+* Libray for image processing algorithms: [OpenCV](https://opencv.org/)
 
-* Dataset: [Waymo](https://waymo.com/open/data/)
+* Dataset: [Multiple Object Tracking Benchmark](https://motchallange.net/data/MOT17/)
 
-* Task management [Trello](https://trello.com/en)
+* Task management: [Jira](https://support.alten.se/projects/MAC/summary)
 
 * Code Review for Git [Gerrit](https://gerrit-review.googlesource.com/Documentation/)
 
