@@ -16,6 +16,8 @@ This is a web application that visualizes object detections of moving objects.
 
 ## Technological specification:
 
+* To provide the JavaScript implementation Node.js uses a C++ library called v8 . Node.js Addons are dynamically-linked shared objects that can be loaded into Node.js using the require() function. Since both v8 and Node.js Addons are written in c++ we can write Addons that interacts with v8 in its own language and treat them as ordinary Node.js modules.
+
 * Client-side: JavaScript, HTML, CSS 
 
 * Server-side: [Flask](http://flask.pocoo.org/)
