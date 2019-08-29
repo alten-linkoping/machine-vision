@@ -22,7 +22,7 @@ This is a web application that visualizes object detections of moving objects.
 
 * Algorithmic core: [C++](http://www.cplusplus.org/)
 
-* Libray for image processing algorithms: [OpenCV](https://opencv.org/)
+* Libray for image processing algorithms: [OpenCV](https://opencv.org/) Version 4.1.0_3
 
 * Dataset: [Multiple Object Tracking Benchmark](https://motchallenge.net/data/MOT17/)
 
