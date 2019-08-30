@@ -8,7 +8,7 @@ int main(int argc, char const *argv[])
 {
 	/* code */
 	std::vector<cv::String> fn;
-	cv::glob("MOT17/MOT17-09-FRCNN/img1/*.jpg", fn, false);
+	cv::glob("MOT17-09-FRCNN/img1/*.jpg", fn, false);
 
 	std::vector<cv::Mat> images;
 	size_t count = fn.size(); //number of jpg files in images folder
