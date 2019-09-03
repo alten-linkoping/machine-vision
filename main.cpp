@@ -1,5 +1,6 @@
 // main.cpp
-#include "motionDetection.h"
+//#include "motionDetection.h"
+#include "opticalFlow.h"
 #include <iostream>
 #include <string>
 
@@ -15,11 +16,13 @@ int main(int argc, char const *argv[])
 	for (size_t i=0; i<count; i++)
     	images.push_back(cv::imread(fn[i]));
 
+	/*
 	motionDetection *MD = new motionDetection(images);
+	MD->LKTracker();
 	MD->setupTracker("MEDIANFLOW");
 	std::cout << "It works" << std::endl;
 	std::cout << "Images read: " << MD->getImages().size() << std::endl;
-
+	
 	namedWindow( "Display window", cv::WINDOW_AUTOSIZE );// Create a window for display.
 	for (int i = 0; i < MD->getImages().size(); ++i)
 	{
@@ -27,6 +30,11 @@ int main(int argc, char const *argv[])
 
     		cv::waitKey(25); 
 	}
-                                         // Wait for a keystroke in the window
+          */                                // Wait for a keystroke in the window
+
+    opticalFlow *OF = new opticalFlow(images);
+    OF->calculateFlow();
+
     return 0;
+   
 }

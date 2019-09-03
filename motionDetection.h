@@ -8,6 +8,8 @@ A class for motion detection and tracking using optical flow to detect movement 
 #include <opencv2/opencv.hpp>
 #include <opencv2/tracking.hpp>
 #include <opencv2/core/ocl.hpp>
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
 
 class motionDetection
 {
@@ -17,6 +19,7 @@ public:
 
 	cv::Ptr<cv::Tracker> createTrackerByName(std::string trackerType); 
 	void LKTracker();
+	void runLKTracker();
 	void setupTracker(std::string const trackerType);
 	std::vector<cv::Mat> getImages();
 	
@@ -42,7 +45,9 @@ private:
     // Parameter values for the Harris corner detection algortihm
     int blockSize = 2;
     int apertureSize = 3;
-    double k = 0.04;
+    double k = 0.04*2;
+    int thresh = 150;
+	int max_thresh = 255;
 };
 
 

@@ -38,10 +38,41 @@ void motionDetection::LKTracker()
 {
 	// Corner detection to initialize points to track
 
-    cv::cvtColor(this->frame, this->nextGray, COLOR_BGR2GRAY);
+    cv::cvtColor(this->frame, this->nextGray, cv::COLOR_BGR2GRAY);
 
-    cv::Mat points = cv::Mat::zeros(this->nextGray.size(), cv::CV_32F);
-    cv::cornerHarris(this->nextGray, points, blockSize, apertureSize, k);
+    cv::Mat points = cv::Mat::zeros( this->nextGray.size(), CV_32FC1 );
+    cv::cornerHarris(this->nextGray, points, this->blockSize, this->apertureSize, this->k);
+
+    cv::Mat dst_norm, dst_norm_scaled;
+    cv::normalize( points, dst_norm, 0, 255, cv::NORM_MINMAX, CV_32FC1, cv::Mat() );
+    cv::convertScaleAbs( dst_norm, dst_norm_scaled );
+    for( int i = 0; i < dst_norm.rows ; i++ )
+    {
+        for( int j = 0; j < dst_norm.cols; j++ )
+        {
+            if( (int) dst_norm.at<float>(i,j) > this->thresh )
+            {
+                cv::circle( dst_norm_scaled, cv::Point(j,i), 5,  cv::Scalar(0), 2, 8, 0 );
+            }
+        }
+    }
+    //cv::namedWindow( "Corners detected");
+    imshow( "Corners detected", dst_norm_scaled );
+    cv::waitKey(0); 
+}
+
+void motionDetection::runLKTracker()
+{
+	cv::namedWindow( "Corners detected");
+
+	for (int i = 0; i < this->images.size(); ++i)
+	{
+		
+	}
+
+	cv::namedWindow( "Corners detected");
+    cv::waitKey(0); 
+
 }
 
 void motionDetection::setupTracker(std::string const trackerType)
