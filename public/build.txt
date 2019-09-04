@@ -1,0 +1,5 @@
+when changing the c++ code run: node-gyp configure build
+
+when chaning the client code run: browserify client.js -o bundle.js
+
+when running the app run: node test

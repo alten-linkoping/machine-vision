@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Machine Vision</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="jumbotron text-center">
+        <h1>Machine Vision</h1>
+        <p>This is a web application that visualizes object detections of moving objects.</p>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Before</h3>
+
+    
+                    <img src="images/000001.jpg" id="mainImage" height=300 width=450>
+   
+                    <br>
+
+                    <div class="buttonPair2">
+                <button id="playButton1" type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-play"></span> Play
+                </button>
+                    
+
+                <button id="stopButtonBefore" type="button"  class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-pause"></span> Pause
+                </button>
+            </div>
+            </div>
+            <div class="col-sm-6">
+                <h3>After</h3>
+                    <img src="images/000001.jpg" id="mainImage2" height=300 width=450>
+    
+                    <br>
+
+                    <div class="buttonPair2">
+                <button id="playButton2" type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-play"></span> Play
+                </button>
+
+                <button id="stopButtonAfter" type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-pause"></span> Pause
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<div class="playBoth">
+<button id="playButtonBoth" type="button" class="btn btn-info btn-lg">
+    <span class="glyphicon glyphicon-play"></span> Play
+  </button>
+
+  <button id="stopButtonBoth" type="button" class="btn btn-info btn-lg">
+    <span class="glyphicon glyphicon-stop"></span> Stop
+  </button>
+</div>
+<script src="bundle.js"></script>
+</html>

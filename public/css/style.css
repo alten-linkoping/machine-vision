@@ -1,0 +1,26 @@
+body {
+    background-color: Gainsboro	;
+  }
+
+
+  h3{
+    text-align: center;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.buttonPair1 {
+  text-align: center;
+}
+
+div.buttonPair2 {
+  text-align: center;
+}
+
+div.playBoth{
+  text-align: center;
+}
