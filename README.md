@@ -20,7 +20,7 @@ This is a web application that visualizes object detections of moving objects.
 
 * Client-side: JavaScript, HTML, CSS 
 
-* Server-side: [Flask](http://flask.pocoo.org/)
+* Server-side: [Node.js](https://nodejs.org/en/) 
 
 * Algorithmic core: [C++](http://www.cplusplus.org/)
 
