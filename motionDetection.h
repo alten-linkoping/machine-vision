@@ -6,7 +6,7 @@ A class for motion detection and tracking using optical flow to detect movement 
 #define motionDetection_H
 
 #include <opencv2/opencv.hpp>
-#include <opencv2/tracking.hpp>
+#include <opencv2/video/tracking.hpp>
 #include <opencv2/core/ocl.hpp>
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
