@@ -135,17 +135,5 @@ typings/
 */cmake_install.cmake
 .DS_Store
 
-### Web ###
-*.asp
-*.cer
-*.csr
-*.css
-*.htm
-*.html
-*.js
-*.jsp
-*.php
-*.rss
-*.xhtml
 
 # End of https://www.gitignore.io/api/web,c++,node,opencv
