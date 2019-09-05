@@ -1,0 +1,19 @@
+dist: 
+  - bionic
+language: 
+  - node_js
+  - c++
+node_js:
+  - 12
+compiler:
+  - gcc
+install: 
+  - npm install
+  - npm i -g node-gyp  
+script: 
+  - node-gyp configure build
+  
+  # In the script part other commands can also be runned
+  # But  remember that it cant be executing more than one hour
+  # - node test.js 
+ 
