@@ -1,0 +1,12 @@
+dist:
+    - bionic
+language:
+    - c++
+compiler:
+    - gcc
+addons:
+    apt:
+        packages:
+            - libopencv-dev
+script:
+    - make
