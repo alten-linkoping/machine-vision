@@ -1,5 +1,5 @@
 CXX=g++
-CXX_FLAGS=-Wall -Wextra -pedantic -Weffc++ -std=c++17
+CXX_FLAGS=-Wall -Wextra -pedantic -Weffc++ -std=c++14
 #OPENCV = `pkg-config --cflags --libs /usr/local/Cellar/opencv/4.1.0_3/lib/pkgconfig/opencv4.pc`
 OPENCV = `pkg-config --cflags --libs opencv`
 LIBS = $(OPENCV)
@@ -17,10 +17,10 @@ $(TARGET) : main.o opticalFlow.o
 	$(CXX) -o $@ $^ $(LIBS) $(CXX_FLAGS) 
 
 main.o : main.cpp opticalFlow.o
-	$(CXX) $(LIBS) -std=c++17 -c $< -o$@
+	$(CXX) $(LIBS) -std=c++14 -c $< -o$@
 
 opticalFlow.o : opticalFlow.cpp opticalFlow.h
-	$(CXX) $(LIBS) -std=c++17 -c $< -o$@
+	$(CXX) $(LIBS) -std=c++14 -c $< -o$@
 
 clean: 
 	$(RM) *.o $(TARGET)

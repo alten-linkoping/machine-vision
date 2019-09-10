@@ -4,6 +4,10 @@
 #include <iostream>
 #include <string>
 
+void init(v8::Local<v8::Object> exports, auto Method)
+	{
+  		NODE_SET_METHOD(exports, "opticalFlow", Method);
+	}
 
 int main(int argc, char const *argv[])
 {
@@ -34,6 +38,8 @@ int main(int argc, char const *argv[])
 
     opticalFlow *OF = new opticalFlow(images);
     OF->calculateFlow();
+
+	NODE_MODULE(opticalFlow_addon, init(OF->sendJson()));
 
     return 0;
    
