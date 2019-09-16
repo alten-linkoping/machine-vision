@@ -9,7 +9,7 @@ std::string hello()
 {
 	// code 
 	std::vector<cv::String> fn;
-	cv::glob("MOT17-09-FRCNN/img1/00000*.jpg", fn, false);
+	cv::glob("MOT17-09-FRCNN/img1/0000*.jpg", fn, false);
 
 	opticalFlow OF;
 	std::vector<std::vector<int> > tempBoxCoords;
@@ -17,13 +17,16 @@ std::string hello()
 	imageBoxCoordinates.append("{");
 
 	// Load and calculate on the first frame
-	OF.setFrame(cv::imread(fn[0]));
+	cv::Mat resizedImage;
+	cv::resize(cv::imread(fn[0]), resizedImage, cv::Size(), 0.25, 0.25, cv::INTER_NEAREST);
+	OF.setFrame(resizedImage);
 	OF.calculateFlow();
-
 
 	for (size_t i=1; i<fn.size(); i++)
 	{
-		OF.setFrame(cv::imread(fn[i]));
+		cv::resize(cv::imread(fn[i]), resizedImage, cv::Size(), 0.25, 0.25, cv::INTER_NEAREST);
+		//OF.setFrame(cv::imread(fn[i]));
+		OF.setFrame(resizedImage);
 		OF.calculateFlow();
 
 		tempBoxCoords = OF.getBoxes();
