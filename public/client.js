@@ -2,17 +2,20 @@ console.log('Client-side code running');
 const io = require('socket.io-client');
 
 var socket;
-var imageArray
+var imageNames
 
 
-socket = io.connect('http://127.0.0.1:3000')
-socket.on("imageNames", getNames);
 
-function getNames(imageNames){
- imageArray = imageNames;
- console.log("test")
- console.log(imageArray);
-}
+socket = io.connect('http://127.0.0.1:3000/client')
+socket.on("names", (names) =>{
+  console.log("received: ", names);
+  imageNames = names;
+  socket.disconnect();
+
+});
+
+
+
 
 
 
@@ -25,9 +28,10 @@ var t;
 
 
 function changeImage() {
-  myImage.setAttribute("src", "images/"+imageArray[imageIndex])
+  console.log(imageNames[imageIndex]);
+  myImage.setAttribute("src", "MOT17-09-FRCNN/img1/"+imageNames[imageIndex])
   imageIndex++;
-  if (imageIndex > imageArray.length-1) {
+  if (imageIndex > imageNames.length-1) {
       imageIndex = 0;
   }
 }
@@ -46,7 +50,8 @@ function stopVideo() {
 
 const playButtonBefore = document.getElementById('playButton1');
 playButtonBefore.addEventListener('click', function(e) {
-  console.log('button was clicked');
+  console.log('Play button before', imageNames);
+
   startVideo();
 });
 

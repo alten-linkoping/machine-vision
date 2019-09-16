@@ -3,12 +3,14 @@ const addon = require('./build/Release/opticalFlow_addon.node');
 var express = require('express');
 var app = express();
 app.use(express.static('public'));
+var data;
 //const addon = require('./build/Release/hello_addon');
+
 
 
 var imageNames = [];
 
-const imageFolder = './public/images/';
+const imageFolder = 'public/MOT17-09-FRCNN/img1/';
 
 
 const fs = require('fs');
@@ -23,7 +25,8 @@ app.get('/', function (req, res) {
 
 server = app.listen(3000, function () {
   console.log("Example app listening to port 3000");
-  console.log(JSON.parse(addon.hello()))
+   
+  //console.log(JSON.parse(addon.hello()))
   
 
 })
@@ -31,22 +34,34 @@ server = app.listen(3000, function () {
 var socket = require('socket.io');
 
 var io = socket(server);
-//console.log(addon.hello());
 
 
+
+
+io.of("/client").on("connection", socket => {
+  //console.log("test");
+  socket.emit("names", imageNames);
+
+});
+
+io.of("/sketch").on("connection", socket => {
+  //console.log("test");
+  data = JSON.parse(addon.hello());
+  socket.emit("data", data);
+
+});
+
+
+/*
 io.sockets.on('connection', newConnection);
 
 function newConnection(socket) {
-
-  var data = JSON.parse(addon.hello());
-
-
-  //console.log(data)
-
-  //data['names'] = imageNames;
-
+  io.sockets.emit("imageNames", imageNames);
   io.sockets.emit("data", data);
 
-  io.sockets.emit("imageNames", imageNames);
+  
 }
+*/
+
+
 

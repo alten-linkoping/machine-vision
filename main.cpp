@@ -9,7 +9,7 @@ std::string hello()
 {
 	// code 
 	std::vector<cv::String> fn;
-	cv::glob("MOT17-09-FRCNN/img1/00000*.jpg", fn, false);
+	cv::glob("public/MOT17-09-FRCNN/img1/00000*.jpg", fn, false);
 
 	opticalFlow OF;
 	std::vector<std::vector<int> > tempBoxCoords;
@@ -29,7 +29,7 @@ std::string hello()
 		tempBoxCoords = OF.getBoxes();
 		std::string tempName = fn[i];
 	
-		imageBoxCoordinates.append("\"" + tempName.erase(0,20) + "\"");
+		imageBoxCoordinates.append("\"" + tempName.erase(0,27) + "\"");
 		imageBoxCoordinates.append(":{");
     	
     	for (int j = 0; j < tempBoxCoords.size(); j++)
