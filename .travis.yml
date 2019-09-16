@@ -11,9 +11,14 @@ addons:
     apt:
         packages:
             - libopencv-dev
+before_install: 
+    - rm -rf node_modules
+    - rm -f package.json   
+    - rm -f package-lock.json   
 install:
-    - npm i -g node-gyp
-    - npm i -g node-addon-api
+    - npm install node-gyp
+    - npm install node-addon-api
 script:
-    - node-gyp configure build
+    - node-gyp configure 
+    - node-gyp build
     - node server.js
