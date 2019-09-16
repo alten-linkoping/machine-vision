@@ -12,7 +12,6 @@ addons:
         packages:
             - libopencv-dev
 install:
-    - npm install
     - npm i -g node-gyp
     - npm i -g node-addon-api
 script:
