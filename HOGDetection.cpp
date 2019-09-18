@@ -2,7 +2,7 @@
 
 HOGDetection::HOGDetection()
 {
-	this->hog.setSVMDetector(cv::HOGDescriptor::getDefaultPeopleDetector());
+	this->hog.setSVMDetector(cv::HOGDescriptor::getDaimlerPeopleDetector());
 }
 
 void HOGDetection::setFrame(cv::Mat frame)
@@ -21,7 +21,7 @@ void HOGDetection::detect()
 {
 	cv::namedWindow("HOG", cv::WINDOW_AUTOSIZE);
 
-	this->hog.detectMultiScale(this->frame, this->found, 0.0, cv::Size(8,8), cv::Size(), 1.05, 2, false);
+	this->hog.detectMultiScale(this->frame, this->found, 0.0, cv::Size(8,8), cv::Size(4,4), 1.05, 2, true);
 
 if(!found.empty()){
 	for (int i = 0; i < this->found.size(); ++i)

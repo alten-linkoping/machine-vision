@@ -10,7 +10,7 @@ std::string hello()
 {
 	// code 
 	std::vector<cv::String> fn;
-	cv::glob("MOT17-09-FRCNN/img1/0000*.jpg", fn, false);
+	cv::glob("MOT17-09-FRCNN/img1/*.jpg", fn, false);
 
 	//opticalFlow OF;
 	HOGDetection HOG;
