@@ -9,7 +9,7 @@ void opticalFlow::setFrame(cv::Mat frame)
 
 std::vector<std::vector<int> > opticalFlow::getBoxes()
 {
-	return this->boxes;
+	return this->bboxes;
 }
 
 void opticalFlow::detectEdges()
@@ -27,24 +27,24 @@ void opticalFlow::detectEdges()
 				std::vector<std::vector<cv::Point> > contours_poly(this->contours.size());
 				cv::approxPolyDP(cv::Mat(this->contours[i]), contours_poly[i], 3, true);
 				cv::Rect box = cv::boundingRect(cv::Mat(contours_poly[i]));
-				if (box.width > 20 && box.height > 20 && box.width < 200 && box.height < 250) {
+				if (box.width > 20 && box.height > 20) {
 					rectangle(this->frame,
 						box.tl(), box.br(),
 						cv::Scalar(0, 255, 0), 2);
-						this->boxes.push_back(std::vector<int> {box.x, box.y, box.height, box.width});
+						this->bboxes.push_back(std::vector<int> {box.x, box.y, box.height, box.width});
 				}
 			
 			}
-	
 
 			/// Show in a window
-			//cv::namedWindow("Contours", CV_WINDOW_AUTOSIZE);
-			//imshow("Contours", this->frame);
+			cv::namedWindow("Contours", CV_WINDOW_AUTOSIZE);
+			imshow("Contours", this->frame);
 }
+
 
 void opticalFlow::calculateFlow()
 {
-	this->boxes.clear();
+	this->bboxes.clear();
 	//cv::namedWindow("flow", cv::WINDOW_AUTOSIZE);
 
 		cv::cvtColor(this->frame, this->gray, cv::COLOR_BGR2GRAY);
@@ -70,7 +70,7 @@ void opticalFlow::calculateFlow()
 			this->detectEdges();
 
 		}
-		//cv::waitKey(25); 
+		cv::waitKey(25); 
 		std::swap(this->prevgray, this->gray);
 }
 	

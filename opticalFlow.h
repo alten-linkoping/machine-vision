@@ -29,7 +29,7 @@ private:
 	cv::Mat flow, cflow, gray, prevgray, img_bgr, img_hsv, gray_bgr;
 	std::vector<std::vector<cv::Point> > contours;
 	std::vector<cv::Vec4i> hierarchy; 
-	std::vector<std::vector<int> > boxes;
+	std::vector<std::vector<int> > bboxes;
  
 
 	void detectEdges();
