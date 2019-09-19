@@ -6,7 +6,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
-
+#include <opencv2/dnn/dnn.hpp>
 
 
 class HOGDetection
@@ -24,6 +24,7 @@ private:
 	cv::HOGDescriptor hog = cv::HOGDescriptor(cv::Size(48, 96), cv::Size(16, 16), cv::Size(8, 8), cv::Size(8, 8), 9);
 	//cv::HOGDescriptor hog;
 	std::vector<cv::Rect> found;
+	std::vector< double > foundScores;
 	std::vector<std::vector<int> > bboxes;
 	void adjustRect(cv::Rect & r) const;
 
