@@ -18,29 +18,46 @@
 
     <div class="jumbotron text-center">
         <h1>Machine Vision</h1>
+
         <p>This is a web application that visualizes object detections of moving objects.</p>
     </div>
+
+
 
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
-                <h3>Before</h3>
+                <!-- <h3>Choose dataset</h3> -->
+                
+
+                <center>
+                    <div class="panel panel-primary" id="result_panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Choose dataset</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <button id="dataset1" type="button" class="list-group-item">
+                                    Dataset 1 <img src="/MOT17-09-FRCNN/img1/000001.jpg" height=100 width=200
+                                        id="listImage1" /></button>
+                                <button id="dataset2" type="button"
+                                    class="list-group-item">Dataset 2 <img
+                                        src="/MOT17-08-DPM/img1/000001.jpg" height=100 width=200
+                                        id="listImage1" /></button>
+                                <button id="dataset3" type="button"
+                                    class="list-group-item">Dataset 3 <img
+                                        src="/MOT17-04-SDP/img1/000001.jpg" height=100 width=200
+                                        id="listImage1" /></button>
+                            </div>
+                        </div>
 
 
-                <img src="/MOT17-09-FRCNN/img1/000001.jpg" id="mainImage" height=270 width=480>
-
-                <br>
-
-                <div class="buttonPair2">
-                    <button id="playButton1" type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-play"></span> Play
-                    </button>
 
 
-                    <button id="stopButtonBefore" type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-pause"></span> Pause
-                    </button>
-                </div>
+
+                </center>
+
+
             </div>
             <div class="col-sm-6">
                 <h3>After</h3>
@@ -53,11 +70,11 @@
                 <br>
 
                 <div class="buttonPair2">
-                    <button id="playButton2" type="button" class="btn btn-default btn-sm">
+                    <button id="playButton2" type="button" class="btn btn-info btn-lg " disabled>
                         <span class="glyphicon glyphicon-play"></span> Play
                     </button>
 
-                    <button id="stopButtonAfter" type="button" class="btn btn-default btn-sm">
+                    <button id="stopButtonAfter" type="button" class="btn btn-info btn-lg" disabled>
                         <span class="glyphicon glyphicon-pause"></span> Pause
                     </button>
                 </div>
@@ -65,16 +82,12 @@
         </div>
     </div>
 
-</body>
-<div class="playBoth">
-    <button id="playButtonBoth" type="button" class="btn btn-info btn-lg">
-        <span class="glyphicon glyphicon-play"></span> Play
-    </button>
+    
+    <p id="demo"></p>
 
-    <button id="stopButtonBoth" type="button" class="btn btn-info btn-lg">
-        <span class="glyphicon glyphicon-stop"></span> Stop
-    </button>
-</div>
-<script src="bundle.js"></script>
+    
+
+</body>
+<!--<script src="bundle.js"></script>-->
 
 </html>

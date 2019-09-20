@@ -1,0 +1,24 @@
+dist:
+    - bionic
+language:
+    - node_js
+    - c++
+node_js:
+    - 12
+compiler:
+    - gcc
+addons:
+    apt:
+        packages:
+            - libopencv-dev
+before_install: 
+    - rm -rf node_modules
+    - rm -f package.json   
+    - rm -f package-lock.json   
+install:
+    - npm install node-gyp
+    - npm install node-addon-api
+script:
+    - node-gyp configure 
+    - node-gyp build
+    - node server.js

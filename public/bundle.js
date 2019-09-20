@@ -6263,7 +6263,7 @@ var t;
 
 function changeImage() {
   console.log(imageNames[imageIndex]);
-  document.getElementById('mainImage').setAttribute("src", "MOT17-09-FRCNN/img1/"+imageNames[imageIndex])
+  myImage.setAttribute("src", "MOT17-09-FRCNN/img1/"+imageNames[imageIndex])
   imageIndex++;
   if (imageIndex > imageNames.length-1) {
       imageIndex = 0;
@@ -6281,7 +6281,7 @@ function startVideo() {
 function stopVideo() {
   clearTimeout(t);
 }
-
+/*
 const playButtonBefore = document.getElementById('playButton1');
 playButtonBefore.addEventListener('click', function(e) {
   console.log('Play button before', imageNames);
@@ -6294,6 +6294,8 @@ stopButtonBefore.addEventListener('click', function(e) {
   console.log('button was clicked');
   stopVideo();
 });
+
+*/
 
 
 const playButtonBoth = document.getElementById('playButtonBoth');

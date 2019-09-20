@@ -24,3 +24,39 @@ div.buttonPair2 {
 div.playBoth{
   text-align: center;
 }
+
+#listImage1{
+  float: right;
+}
+
+.list-group{
+  max-height: 200px;
+  margin-bottom: 10px;
+  overflow:scroll;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  
+  
+}
+
+#result_panel{
+  margin-top: 50px;
+  background-color: Gainsboro	;
+}
+
+
+.list-group .list-group-item {
+  background-color:Gainsboro;
+  border-top: 1px solid #0275d8;
+  border-left-color: #0275d8;
+  border-right-color: #0275d8;
+  border-bottom: 1px solid #0275d8;
+}
+
+.list-group .list-group-item:hover {
+  background-color: #0275d8;
+}
+
+
+
+

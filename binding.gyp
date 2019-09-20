@@ -23,7 +23,8 @@
       'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS' ],
       "sources": [
         "opticalFlow.cpp", 
-        "main.cpp"
+        "main.cpp",
+        "classexample.cpp"
       ],
       "cflags!" : [
         "-fno-exceptions"

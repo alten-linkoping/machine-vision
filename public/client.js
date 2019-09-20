@@ -47,7 +47,7 @@ function startVideo() {
 function stopVideo() {
   clearTimeout(t);
 }
-
+/*
 const playButtonBefore = document.getElementById('playButton1');
 playButtonBefore.addEventListener('click', function(e) {
   console.log('Play button before', imageNames);
@@ -61,17 +61,19 @@ stopButtonBefore.addEventListener('click', function(e) {
   stopVideo();
 });
 
+*/
+
 
 const playButtonBoth = document.getElementById('playButtonBoth');
 playButtonBoth.addEventListener('click', function(e) {
   console.log('button was clicked');
   startVideo();
-  startVideo2();
+  startVideo();
 });
 
 const stopButtonBoth = document.getElementById('stopButtonBoth');
 stopButtonBoth.addEventListener('click', function(e) {
   console.log('button was clicked');
   stopVideo();
-  stopVideo2();
+  stopVideo();
 });
