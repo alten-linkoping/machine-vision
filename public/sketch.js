@@ -181,7 +181,7 @@ class Particle {
   display() {
     stroke('rgb(0,0,0)');
     strokeWeight(2);
-    fill('rgb(0,255,0)');
+    fill('#0275d8');
     ellipse(this.pos.x, this.pos.y, 48, 48);
   }
 
@@ -207,6 +207,8 @@ class Particle {
 
 
 
+
+
 function setup() {
 
   //1920x1080
@@ -222,7 +224,6 @@ function setup() {
 
 
 
-
 function draw() {
   if (imageArray2 != null) {
     document.getElementById('playButton2').disabled = false;
@@ -234,7 +235,9 @@ function draw() {
 
     possibleToChangeSet = true;
 
-    document.getElementById("demo").innerHTML = "Dataset "+(dataSetNumber+1);
+    document.getElementById("demo").innerHTML = "Dataset " + (dataSetNumber + 1);
+
+
 
     for (var i in imageArray2[currentImage]) {
       //console.log(imageArray2[currentImage][i]);
@@ -248,7 +251,7 @@ function draw() {
 
       noFill();
       rect(first, second, fourth, third);
-      //console.log("MÅLA!!!!" + first +", "+ second +", "+  third +", "+  fourth);
+
 
 
       //x,y, height,width
@@ -273,18 +276,25 @@ function draw() {
       angle += 0.1
       document.getElementById('playButton2').disabled = true;
       document.getElementById('stopButtonAfter').disabled = true;
-      
-      
+
+
     }
     else {
 
       background(50);
       strokeWeight(2);
-      //make the text flash between 0 and 258(black and white). The framecount scaling factor depends on how smooth the text should flash.
-      fill(128 + sin(frameCount * 0.1) * 128);
-      if (mouseIsPressed) {
-        //set the boarder to green when the mouse is pressed
-        stroke('rgb(0,255,0)');
+
+
+      document.getElementById("demo1").innerHTML = Math.abs(particle.vel.x);
+
+      if (particle.vel.x != 0) {
+        //make the text flash between 0 and 258(black and white). The framecount scaling factor depends on how smooth the text should flash.
+        fill(128 + sin(frameCount * 0.1) * 128);
+      }
+
+      if (mouseIsPressed && 0 < mouseX && mouseX < 480 && 0 < mouseY && mouseY < 270) {
+        //set the boarder to blue when the mouse is pressed
+        stroke('#0275d8');
         strokeWeight(4);
       }
       else {
@@ -296,7 +306,7 @@ function draw() {
       var gravity = createVector(0, 0.2);
       var wind = createVector(0.09, 0);
 
-      if (mouseIsPressed) {
+      if (mouseIsPressed && 0 < mouseX && mouseX < 480 && 0 < mouseY && mouseY < 270) {
         particle.applyForce(wind);
       }
 
