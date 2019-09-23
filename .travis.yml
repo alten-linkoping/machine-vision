@@ -11,6 +11,7 @@ addons:
     apt:
         packages:
             - libopencv-dev
+            - sqlite3
 before_install: 
     - rm -rf node_modules
     - rm -f package.json   
