@@ -312,6 +312,8 @@ function draw() {
         document.getElementById("demo2").innerHTML = Math.abs(particle.vel.x) ;
         highScore = Math.abs(particle.vel.x);
 
+        /*
+
         $(document).ready(() =>{
         $.ajax({
           type: "POST",
@@ -321,6 +323,8 @@ function draw() {
           dataType: dataType
         });
       });
+
+      */
 
       }
       else{

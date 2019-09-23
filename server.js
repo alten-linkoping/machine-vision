@@ -8,7 +8,7 @@ var data;
 
 var dataSet;
 
-const sqlite3 = require('sqlite3')
+
 app.get('/test', (req, res) => {
 var test1 = { "age":30 }
 
