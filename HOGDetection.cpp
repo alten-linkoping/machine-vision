@@ -3,6 +3,7 @@
 HOGDetection::HOGDetection()
 {
 	this->hog.setSVMDetector(cv::HOGDescriptor::getDaimlerPeopleDetector());
+	//this->hog.setSVMDetector(cv::HOGDescriptor::getDefaultPeopleDetector());
 }
 
 void HOGDetection::setFrame(cv::Mat frame)
@@ -20,7 +21,7 @@ std::vector<std::vector<int> > HOGDetection::getBoxes()
 
 void HOGDetection::detect()
 {
-	cv::namedWindow("HOG", cv::WINDOW_AUTOSIZE);
+	//cv::namedWindow("HOG", cv::WINDOW_AUTOSIZE);
 
 	this->hog.detectMultiScale(this->frame, this->found, this->foundScores, 0.0, cv::Size(8,8), cv::Size(4,4), 1.05, 2, true);
 	std::vector<int> indices;
@@ -32,7 +33,9 @@ void HOGDetection::detect()
 	}
 
 	//Remove boxes that overlaps to much. Non Max Suppresion.
-	cv::dnn::NMSBoxes(this->found, confidences, 0.3, 0.15, indices);
+	cv::dnn::NMSBoxes(this->found, confidences, 0.3, 0.4, indices);
+
+
 
 if(!found.empty()){
 	for (int i = 0; i < indices.size(); ++i)
@@ -41,12 +44,12 @@ if(!found.empty()){
 		rectangle(this->frame,
 						this->found[indices[i]].tl(), this->found[indices[i]].br(),
 						cv::Scalar(0, 255, 0), 2);
-		this->bboxes.push_back(std::vector<int> {this->found[indices[i]].x/2, this->found[indices[i]].y/2, this->found[indices[i]].height/2, this->found[indices[i]].width/2});
+		this->bboxes.push_back(std::vector<int> {this->found[indices[i]].x, this->found[indices[i]].y, this->found[indices[i]].height/2, this->found[indices[i]].width/2});
 	}
 }
 
-	imshow("HOG", this->frame);
-	cv::waitKey(5);
+	//imshow("HOG", this->frame);
+	//cv::waitKey(5);
 }
 
 void HOGDetection::adjustRect(cv::Rect & r) const

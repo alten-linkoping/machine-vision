@@ -16,18 +16,19 @@ void opticalFlow::detectEdges()
 {
 	/// Detect edges using Threshold
 			cv::Mat img_thresh = cv::Mat::zeros(this->frame.rows, this->frame.cols, CV_8UC1);
-			cv::threshold(this->gray_bgr, img_thresh, 245, 255, cv::THRESH_BINARY_INV);
-			cv::dilate(img_thresh, img_thresh, 0, cv::Point(-1, -1), 5);
-			cv::erode(img_thresh, img_thresh, 0, cv::Point(-1, -1), 10);
-			cv::dilate(img_thresh, img_thresh, 0, cv::Point(-1, -1), 5);
-			//imshow("tresh",img_thresh);
-			cv::findContours(img_thresh, this->contours, this->hierarchy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+			cv::threshold(this->gray_bgr, img_thresh, 242, 255, cv::THRESH_BINARY_INV);
+			
+			cv::dilate(img_thresh, img_thresh, 0, cv::Point(-1, -1), 10);
+			cv::erode(img_thresh, img_thresh, 0, cv::Point(-1, -1), 8);
+			//cv::dilate(img_thresh, img_thresh, 0, cv::Point(-1, -1), 10);
+			imshow("tresh",img_thresh);
+			cv::findContours(img_thresh, this->contours, this->hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE);
 			for (auto i = 0; i < this->contours.size(); i++)
 			{
 				std::vector<std::vector<cv::Point> > contours_poly(this->contours.size());
 				cv::approxPolyDP(cv::Mat(this->contours[i]), contours_poly[i], 3, true);
 				cv::Rect box = cv::boundingRect(cv::Mat(contours_poly[i]));
-				if (box.width > 20 && box.height > 20) {
+				if (box.width > 25 && box.height > 25) {
 					rectangle(this->frame,
 						box.tl(), box.br(),
 						cv::Scalar(0, 255, 0), 2);
@@ -45,33 +46,34 @@ void opticalFlow::detectEdges()
 void opticalFlow::calculateFlow()
 {
 	this->bboxes.clear();
-	//cv::namedWindow("flow", cv::WINDOW_AUTOSIZE);
+	cv::namedWindow("flow", cv::WINDOW_AUTOSIZE);
 
-		cv::cvtColor(this->frame, this->gray, cv::COLOR_BGR2GRAY);
+	cv::cvtColor(this->frame, this->gray, cv::COLOR_BGR2GRAY);
 
 
 		if (!prevgray.empty())
 		{
 			// Calculate the optical flow using the Farneback method using the gray scale image of the current and previous frame.
-			cv::calcOpticalFlowFarneback(this->prevgray, this->gray, this->flow, 0.5, 5, 12, 3, 5, 1.2, cv::OPTFLOW_FARNEBACK_GAUSSIAN);
+			cv::calcOpticalFlowFarneback(this->prevgray, this->gray, this->flow, 0.5, 5, 8, 3, 7, 1.5, cv::OPTFLOW_USE_INITIAL_FLOW);
 			// void calcOpticalFlowFarneback(InputArray prev, InputArray next, InputOutputArray flow, double pyr_scale, int levels, int winsize, int iterations, int poly_n, double poly_sigma, int flags)
 			
 			// 
 			cv::cvtColor(this->prevgray, this->cflow, cv::COLOR_GRAY2BGR);
-			drawOptFlowMap(0.8, 10, CV_RGB(0, 255, 0));
-			//imshow("flow", this->cflow);
+			drawOptFlowMap(0.5, 10, CV_RGB(0, 255, 0));
+			imshow("flow", this->cflow);
 			this->drawHsv();
 			this->gray_bgr = cv::Mat::zeros(this->frame.rows, this->frame.cols, CV_8UC1);
 			cv::cvtColor(this->img_bgr, this->gray_bgr, CV_BGR2GRAY);
+			//this->gray_bgr = this->img_bgr;
 			cv::normalize(this->gray_bgr, this->gray_bgr, 0, 255, cv::NORM_MINMAX, CV_8UC1);
-			cv::blur(this->gray_bgr, this->gray_bgr, cv::Size(5,5));
-			//imshow("gray", this->gray_bgr);
+			cv::GaussianBlur(this->gray_bgr, this->gray_bgr, cv::Size(5,5), 0, 0);
+			imshow("gray", this->gray_bgr);
 
 			this->detectEdges();
 
 		}
-		cv::waitKey(25); 
-		std::swap(this->prevgray, this->gray);
+	cv::waitKey(25); 
+	std::swap(this->prevgray, this->gray);
 }
 	
 
@@ -91,15 +93,17 @@ void opticalFlow::drawHsv() {
 	magnitude.convertTo(
 		magnitude,    // output matrix
 		-1,           // type of the ouput matrix, if negative same type as input matrix
-		1.5 / mag_max // scaling factor
+		5 / mag_max // scaling factor
 	);
 
+	const double PI = std::atan(1.0)*4;
 
 	//build hsv image
 	cv::Mat _hsv[3];
-	_hsv[0] = angle;
-	_hsv[1] = magnitude;
-	_hsv[2] = cv::Mat::ones(angle.size(), CV_32F);
+	_hsv[0] = angle*180/PI/2;
+	_hsv[1] = cv::Mat::ones(angle.size(), CV_32F)*255;
+	_hsv[2] = cv::min(magnitude*45, 255);
+	//cv::normalize(magnitude, _hsv[1], 0, 255, cv::NORM_MINMAX);
 
 	cv::merge(_hsv, 3, hsv);
 	//convert to BGR and show
