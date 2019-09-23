@@ -44,7 +44,7 @@ if(!found.empty()){
 		rectangle(this->frame,
 						this->found[indices[i]].tl(), this->found[indices[i]].br(),
 						cv::Scalar(0, 255, 0), 2);
-		this->bboxes.push_back(std::vector<int> {this->found[indices[i]].x, this->found[indices[i]].y, this->found[indices[i]].height/2, this->found[indices[i]].width/2});
+		this->bboxes.push_back(std::vector<int> {this->found[indices[i]].x, this->found[indices[i]].y, this->found[indices[i]].height, this->found[indices[i]].width});
 	}
 }
 
