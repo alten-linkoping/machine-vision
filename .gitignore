@@ -138,6 +138,6 @@ typings/
 *build/
 program
 *gch*
-
+*MOT*
 
 # End of https://www.gitignore.io/api/web,c++,node,opencv

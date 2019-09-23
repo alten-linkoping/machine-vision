@@ -17,12 +17,12 @@ std::vector<std::string> dataSets = {"MOT17-09-FRCNN", "MOT17-08-FRCNN", "MOT17-
 
 std::string hello(int dataset)
 {
+
 	// code 
 	std::vector<cv::String> fn;
 
 	cv::glob("public/"+ dataSets[dataset-1]+"/img1/00000*.jpg", fn, false);
 
-	//opticalFlow OF;
 	HOGDetection HOG;
 	std::vector<std::vector<int> > tempBoxCoords;
 	std::string imageBoxCoordinates;
@@ -30,25 +30,21 @@ std::string hello(int dataset)
 
 	// Load and calculate on the first frame
 	cv::Mat resizedImage;
-	cv::resize(cv::imread(fn[0], CV_LOAD_IMAGE_COLOR), resizedImage, cv::Size(1920/2, 1080/2), 0, 0, cv::INTER_NEAREST);
-	//OF.setFrame(resizedImage);
-	//OF.calculateFlow();
-
+	cv::resize(cv::imread(fn[0], CV_LOAD_IMAGE_COLOR), resizedImage, cv::Size(1920/4, 1080/4), 0, 0, cv::INTER_NEAREST);
 
 	for (size_t i=0; i<fn.size(); i++)
 	{
-		cv::resize(cv::imread(fn[i], CV_LOAD_IMAGE_COLOR), resizedImage, cv::Size(1920/2, 1080/2), 0, 0, cv::INTER_NEAREST);
-		//OF.setFrame(cv::imread(fn[i]));
-		//OF.setFrame(resizedImage);
-		//OF.calculateFlow();
+		cv::resize(cv::imread(fn[i], CV_LOAD_IMAGE_COLOR), resizedImage, cv::Size(1920/4, 1080/4), 0, 0, cv::INTER_NEAREST);
 		HOG.setFrame(resizedImage);
 		HOG.detect();
 
-		//tempBoxCoords = OF.getBoxes();
 		tempBoxCoords = HOG.getBoxes();
 		std::string tempName = fn[i];
+
+		std::vector<std::string> result; 
+		boost::split(result, tempName, boost::is_any_of("/")); 
 	
-		imageBoxCoordinates.append("\"" + tempName.erase(0,27) + "\"");
+		imageBoxCoordinates.append("\"" + result[result.size()-1] + "\"");
 		imageBoxCoordinates.append(":{");
     	
     	if(!tempBoxCoords.empty())
@@ -87,6 +83,7 @@ std::string hello(int dataset)
 		}
 	}
 	    return imageBoxCoordinates;
+
 }
 
 
