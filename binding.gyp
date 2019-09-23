@@ -22,9 +22,9 @@
         ],
       'defines': [ 'NAPI_DISABLE_CPP_EXCEPTIONS' ],
       "sources": [
+        "HOGDetection.cpp",
         "opticalFlow.cpp", 
-        "main.cpp",
-        "classexample.cpp"
+        "main.cpp"
       ],
       "cflags!" : [
         "-fno-exceptions"

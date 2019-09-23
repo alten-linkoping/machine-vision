@@ -14,7 +14,10 @@ var socket;
 
 var dataSetNumber = 0;
 
-var dataSetNames = ["MOT17-09-FRCNN", "MOT17-08-DPM", "MOT17-04-FRCNN"]
+var dataSetNames = ["MOT17-09-FRCNN", "MOT17-08-FRCNN", "MOT17-04-SDP"]
+
+var highScore =0;
+
 
 var dataSetHasBeenChosen = false;
 
@@ -220,6 +223,24 @@ function setup() {
 
   particle = new Particle();
 
+  document.getElementById("demo1").innerHTML = highScore;
+
+
+  $(document).ready(() =>{
+    $.ajax({
+      url: 'test/',
+      type: 'GET',
+      dataType: 'json',
+      success: (data) => {
+        console.log("test: "+ data);
+        highScore = parseInt(data);
+        document.getElementById("demo2").innerHTML = highScore;
+
+      }
+    });
+
+  });
+
 }
 
 
@@ -285,7 +306,30 @@ function draw() {
       strokeWeight(2);
 
 
-      document.getElementById("demo1").innerHTML = Math.abs(particle.vel.x);
+      if(Math.abs(particle.vel.x) > highScore){
+        //document.getElementById("demo1").innerHTML = "JAAAAAAA";
+        document.getElementById("demo1").innerHTML = Math.abs(particle.vel.x);
+        document.getElementById("demo2").innerHTML = Math.abs(particle.vel.x) ;
+        highScore = Math.abs(particle.vel.x);
+
+        $(document).ready(() =>{
+        $.ajax({
+          type: "POST",
+          url: "sendhighscore/",
+          data: data,
+          success: success,
+          dataType: dataType
+        });
+      });
+
+      }
+      else{
+        document.getElementById("demo1").innerHTML = Math.abs(particle.vel.x);
+        
+        
+      }
+
+      
 
       if (particle.vel.x != 0) {
         //make the text flash between 0 and 258(black and white). The framecount scaling factor depends on how smooth the text should flash.

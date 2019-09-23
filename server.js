@@ -8,6 +8,22 @@ var data;
 
 var dataSet;
 
+const sqlite3 = require('sqlite3')
+app.get('/test', (req, res) => {
+var test1 = { "age":30 }
+
+console.log("test");
+res.send("10");
+});
+
+
+app.get('/sendhighscore', (req, res) => {
+  var test1 = { "age":30 }
+  
+  console.log("test");
+  res.send("10");
+  });
+
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + "/index1.html");
@@ -15,9 +31,6 @@ app.get('/', function (req, res) {
 
 server = app.listen(3000, function () {
   console.log("Example app listening to port 3000");
-
-  //console.log(JSON.parse(addon.hello()))
-
 
 })
 

@@ -13,13 +13,13 @@ TARGET   := program
 
 all: $(TARGET)
 
-$(TARGET) : main.o opticalFlow.o
+$(TARGET) : main_test.o HOGDetection.o
 	$(CXX) -o $@ $^ $(LIBS) $(CXX_FLAGS) 
 
-main.o : main.cpp opticalFlow.o
+main_test.o : main_test.cpp HOGDetection.o
 	$(CXX) $(LIBS) -std=c++14 -c $< -o$@
 
-opticalFlow.o : opticalFlow.cpp opticalFlow.h
+HOGDetection.o : HOGDetection.cpp HOGDetection.h
 	$(CXX) $(LIBS) -std=c++14 -c $< -o$@
 
 clean: 

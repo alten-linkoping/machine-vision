@@ -6,11 +6,10 @@
 
 #include <opencv2/opencv.hpp>
 
-//#include <opencv2/video/tracking.hpp>
-//#include <opencv2/core/ocl.hpp>
-//#include "opencv2/highgui.hpp"
-//#include "opencv2/imgproc.hpp"
-//#include <node.h>
+#include <opencv2/video/tracking.hpp>
+#include <opencv2/core/ocl.hpp>
+#include "opencv2/highgui.hpp"
+#include "opencv2/imgproc.hpp"
 
 class opticalFlow
 {
@@ -29,7 +28,7 @@ private:
 	cv::Mat flow, cflow, gray, prevgray, img_bgr, img_hsv, gray_bgr;
 	std::vector<std::vector<cv::Point> > contours;
 	std::vector<cv::Vec4i> hierarchy; 
-	std::vector<std::vector<int> > boxes;
+	std::vector<std::vector<int> > bboxes;
  
 
 	void detectEdges();
