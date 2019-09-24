@@ -1,28 +1,43 @@
 const addon = require('./build/Release/opticalFlow_addon.node');
 
+const sqlite3 = require('sqlite3')
+
+const db = new sqlite3.Database('score.db');
+
 var express = require('express');
 var app = express();
 app.use(express.static('public'));
 var data;
-//const addon = require('./build/Release/hello_addon');
 
-var dataSet;
+//app.use(express.bodyParser());
+//const addon = require('./build/Release/hello_addon');
+var bodyParser = require('body-parser')
+app.use(bodyParser.json())
+
+var highscore;
 
 
 app.get('/test', (req, res) => {
 var test1 = { "age":30 }
 
-console.log("test");
-res.send("10");
+
+ db.get("select score from highscore where name = 'velocity'", (err, row)=>{
+   console.log(row);
+  res.send(row);
 });
 
 
-app.get('/sendhighscore', (req, res) => {
-  var test1 = { "age":30 }
-  
-  console.log("test");
-  res.send("10");
-  });
+});
+
+
+app.post('/todb', function(req, res){
+	var obj = {};
+  console.log('body: ' + JSON.stringify(req.body));
+  console.log(req.body.score);
+  db.run("UPDATE highscore SET score = ? WHERE name = 'velocity'", [req.body.score]);
+	res.send(req.body);
+});
+
 
 
 app.get('/', function (req, res) {
@@ -48,16 +63,10 @@ io.on('connection', function(socket) {
       chosenDataSet = addon.add(dataSet,10);
       console.log(chosenDataSet);
 
+      //db.run("UPDATE highscore SET score = 20 WHERE name = 'velocity'");
+
       io.sockets.emit("data", JSON.parse(chosenDataSet));
       
-/*
-      io.of("/client").on("connection", socket => {
-        //console.log("test");
-        data = JSON.parse(chosenDataSet);
-        socket.emit("data", data);
-      
-      });
-      */
 
       
 

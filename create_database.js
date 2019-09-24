@@ -5,9 +5,9 @@ const db = new sqlite3.Database('score.db');
 
 db.serialize(() =>{
 
-    db.run("CREATE TABLE IF NOT EXISTS highscore (name TEXT)");
+    db.run("CREATE TABLE IF NOT EXISTS highscore (name TEXT, score INTEGER)");
 
-    db.run("INSERT INTO highscore VALUES ('test')");
+    db.run("INSERT INTO highscore VALUES ('velocity', 10)");
     //db.run("INSERT INTO highscore ('test2')");
 
     console.log("Successfully created the higscore table in the score database");

@@ -24,6 +24,13 @@ var dataSetHasBeenChosen = false;
 let particle;
 
 
+var velocityXPos = 44;
+
+var highScoreXPos = 246
+
+var highscoreAndVelocityYPos = 30;
+
+
 
 
 var possibleToChangeSet = true;
@@ -209,7 +216,24 @@ class Particle {
 
 
 
+function ajaxGet(){
+  $(document).ready(() =>{
+    $.ajax({
+      url: 'test/',
+      type: 'GET',
+      dataType: 'json',
+      success: (data) => {
+        console.log("test");
+        console.log("test: "+ data["score"]);
+        highScore = parseFloat(data["score"]).toFixed(2);
 
+        
+
+      }
+    });
+
+  });
+}
 
 
 function setup() {
@@ -223,32 +247,28 @@ function setup() {
 
   particle = new Particle();
 
-  document.getElementById("demo1").innerHTML = highScore;
+  ajaxGet();
 
 
-  $(document).ready(() =>{
-    $.ajax({
-      url: 'test/',
-      type: 'GET',
-      dataType: 'json',
-      success: (data) => {
-        console.log("test: "+ data);
-        highScore = parseInt(data);
-        document.getElementById("demo2").innerHTML = highScore;
 
-      }
-    });
+}
 
-  });
 
+function ablePlayAndStopButtons(){
+  document.getElementById('playButton2').disabled = false;
+  document.getElementById('stopButtonAfter').disabled = false;
+}
+
+
+function twoDigits(velocity) {
+  return (velocity < 10 ? '0' : '') + velocity;
 }
 
 
 
 function draw() {
   if (imageArray2 != null) {
-    document.getElementById('playButton2').disabled = false;
-    document.getElementById('stopButtonAfter').disabled = false;
+    ablePlayAndStopButtons();
     img.resize(480, 270);
     // Displays the image at its actual size at point (0,0)
     image(img, 0, 0);
@@ -306,29 +326,57 @@ function draw() {
       strokeWeight(2);
 
 
+
+
       if(Math.abs(particle.vel.x) > highScore){
-        //document.getElementById("demo1").innerHTML = "JAAAAAAA";
-        document.getElementById("demo1").innerHTML = Math.abs(particle.vel.x);
-        document.getElementById("demo2").innerHTML = Math.abs(particle.vel.x) ;
-        highScore = Math.abs(particle.vel.x);
+        
+        highScore = Math.abs(particle.vel.x).toFixed(2);
 
-        /*
+        textSize(25);
+        text("Velocity: "+highScore, velocityXPos, highscoreAndVelocityYPos);
+        text("|",225, highscoreAndVelocityYPos);
+        text("Highscore: "+highScore, highScoreXPos, highscoreAndVelocityYPos);
 
-        $(document).ready(() =>{
+        
+        
+
+
+        var data1 = {};
+        data1.score = highScore;
+        
         $.ajax({
-          type: "POST",
-          url: "sendhighscore/",
-          data: data,
-          success: success,
-          dataType: dataType
-        });
-      });
+          type: 'POST',
+          data: JSON.stringify(data1),
+              contentType: 'application/json',
+                      url: 'http://127.0.0.1:3000/todb',						
+                      success: function(data1) {
+                          console.log('success');
+                          console.log(JSON.stringify(data1));
+                      }
+                  });
 
-      */
+      
 
       }
       else{
-        document.getElementById("demo1").innerHTML = Math.abs(particle.vel.x);
+
+        textSize(25);
+        var velocity = Math.abs(particle.vel.x);
+
+      if(velocity<10){
+        text("Velocity: 0"+Number(velocity).toFixed(2), velocityXPos, highscoreAndVelocityYPos);
+      }
+      else{
+        text("Velocity: "+Number(velocity).toFixed(2), velocityXPos, highscoreAndVelocityYPos);
+
+      }
+
+
+        text("|",225, highscoreAndVelocityYPos);
+        text("Highscore: "+highScore, highScoreXPos, highscoreAndVelocityYPos);
+
+        
+
         
         
       }
@@ -349,7 +397,10 @@ function draw() {
         noStroke();
       }
       textSize(50);
-      text("Choose dataset", 70, 80);
+      text("Choose dataset", 70, 90);
+
+
+
 
       var gravity = createVector(0, 0.2);
       var wind = createVector(0.09, 0);
