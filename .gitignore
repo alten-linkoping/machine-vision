@@ -110,5 +110,5 @@ tflogs/
 node_modules/
 tensorTest.py
 MOT17/
-faster_rcnn_*
+*COCO*
 *.avi
