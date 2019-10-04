@@ -6,6 +6,7 @@ import numpy as np
 import tensorflow as tf
 import cv2
 import time
+from flask import Flask, jsonify, make_response, request
 
 
 class DetectorAPI:
@@ -60,32 +61,49 @@ class DetectorAPI:
         self.default_graph.close()
 
 if __name__ == "__main__":
-    model_path = 'faster_rcnn_inception_v2_coco_2018_01_28/frozen_inference_graph.pb'
-    #model_path = 'ssd_mobilenet_v1_fpn_shared_box_predictor_640x640_coco14_sync_2018_07_03/frozen_inference_graph.pb'
+    #model_path = 'faster_rcnn_inception_v2_coco_2018_01_28/frozen_inference_graph.pb'
+    model_path = 'ssd_mobilenet_v1_ppn_shared_box_predictor_300x300_coco14_sync_2018_07_03/frozen_inference_graph.pb'
     
     odapi = DetectorAPI(path_to_ckpt=model_path)
-    threshold = 0.6
-    cap = cv2.VideoCapture('TownCentreXVID.avi')
-    #cap = cv2.VideoCapture('MOT17/train/MOT17-09-FRCNN/img1/%06d.jpg')
+    threshold = 0.5
+    #cap = cv2.VideoCapture('TownCentreXVID.avi')
+    cap = cv2.VideoCapture('MOT17/train/MOT17-09-FRCNN/img1/%06d.jpg')
+
+    app = Flask(__name__)
 
     im_size_x = int(1280/2)
     im_size_y = int(720/2)
 
     peopleID = 1
+    frameID = 0
 
     while True:
         r, img = cap.read()
         img = cv2.resize(img, (im_size_x, im_size_y))
+        frameID += 1
 
         boxes, scores, classes, num = odapi.processFrame(img)
 
         # Visualization of the results of a detection.
-
+        jsonCoord = []
         for i in range(len(boxes)):
             # Class 1 represents human
-            if classes[i] == peopleID and scores[i] > threshold:
+            if classes[i] == peopleID and scores[i] > threshold and boxes[i][3]-boxes[i][1] < 500:
                 box = boxes[i]
                 cv2.rectangle(img,(box[1],box[0]),(box[3],box[2]),(255,0,0),2)
+                jsonCoord.append([box[1],box[0],box[3],box[2]])
+
+        # Here is where the json object is created and should be sent
+        if frameID == 5:
+            @app.route("/json", methods=['POST'])
+            def json_sendCoord():
+                message = jsonify({
+                    "frameNumber": frameID,
+                    "coords": jsonCoord
+                    })
+                return message
+            print(json_sendCoord())
+
 
         cv2.imshow("preview", img)
         key = cv2.waitKey(1)
