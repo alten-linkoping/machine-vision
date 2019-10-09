@@ -111,4 +111,5 @@ node_modules/
 tensorTest.py
 MOT17/
 *COCO*
-*.avi
+*.avi 
+models/
