@@ -45,9 +45,8 @@ def upload_video():
 		
 		video_path = os.path.join(app.config["VIDEO_INPUT_DIR"], file.filename) 
 		file.save(video_path)
-		
-		frame_count = tf_hd.getFrameCount(video_path)
-		return jsonify({"sucess": True, "message": "Video successfully stored in ", "frame_count": frame_count })
+
+		return jsonify({"sucess": True, "message": "Video successfully stored in "})
 	
 
 app.run(debug=True)
