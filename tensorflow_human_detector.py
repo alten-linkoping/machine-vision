@@ -1,12 +1,22 @@
 # Code adapted from Tensorflow Object Detection Framework
 # https://github.com/tensorflow/models/blob/master/research/object_detection/object_detection_tutorial.ipynb
 # Tensorflow Object Detection Detector
+#
+# Getting frames count in OPENCV 
+# https://www.pyimagesearch.com/2017/01/09/count-the-total-number-of-frames-in-a-video-with-opencv-and-python/
+#
 import os
 import numpy as np
 import tensorflow as tf
 import cv2
 import time
 from flask import Flask, jsonify, make_response, request
+
+def getFrameCount(video_path):
+    cap = cv2.VideoCapture(video_path)
+    frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    cap.release()
+    return frame_count
 
 def getPathToModel():
     p_file = os.path.abspath(__file__)
@@ -67,13 +77,25 @@ class DetectorAPI:
         self.sess.close()
         self.default_graph.close()
 
+
+
 #def startDetection():
 if __name__ == "__main__":
        
     model_path = getPathToModel()
     odapi = DetectorAPI(path_to_ckpt=model_path)
     threshold = 0.5
-    cap = cv2.VideoCapture('input/TownCentreXVID.avi')
+
+    cap = cv2.VideoCapture('input/video.mp4')
+
+    # Getting frame count can be buggy, checkout the link on top of the file 
+    # Only tested it with an .mp4 file
+    frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+    #_width  = int(cap.get(cv2.cv.CV_CAP_PROP_FRAME_WIDTH))
+    #_height = int(cap.get(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT))
+    #_fps    = cap.get(cv2.cv.CV_CAP_PROP_FPS)
+
+    
 
     im_size_x = int(1280/2)
     im_size_y = int(720/2)
@@ -97,11 +119,15 @@ if __name__ == "__main__":
                 cv2.rectangle(img,(box[1],box[0]),(box[3],box[2]),(255,0,0),2)
                 jsonCoord.append([box[1],box[0],box[3],box[2]])
 
+    
         cv2.imshow("preview", img)
         key = cv2.waitKey(1)
         if key & 0xFF == ord('q'):
             break
-
+    
+    #Release after the capture
+    cap.release()
+    cv2.destroyAllWindows()
 
 
         # # Here is where the json object is created and should be sent
