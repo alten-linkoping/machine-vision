@@ -1,13 +1,20 @@
 # Code adapted from Tensorflow Object Detection Framework
 # https://github.com/tensorflow/models/blob/master/research/object_detection/object_detection_tutorial.ipynb
 # Tensorflow Object Detection Detector
-
+import os
 import numpy as np
 import tensorflow as tf
 import cv2
 import time
 from flask import Flask, jsonify, make_response, request
 
+def getPathToModel():
+    p_file = os.path.abspath(__file__)
+    p_dir = os.path.dirname(p_file)
+    p_models_dir = os.path.join(p_dir, "models")
+    p_cnn_dir = os.path.join(p_models_dir, "ssd_mobilenet_v1_ppn_shared_box_predictor_300x300_coco14_sync_2018_07_03")
+    p_cnn_file = os.path.join(p_cnn_dir, "frozen_inference_graph.pb")
+    return p_cnn_file
 
 class DetectorAPI:
     def __init__(self, path_to_ckpt):
@@ -61,15 +68,11 @@ class DetectorAPI:
         self.default_graph.close()
 
 if __name__ == "__main__":
-    #model_path = 'faster_rcnn_inception_v2_coco_2018_01_28/frozen_inference_graph.pb'
-    model_path = 'ssd_mobilenet_v1_ppn_shared_box_predictor_300x300_coco14_sync_2018_07_03/frozen_inference_graph.pb'
-    
+   
+    model_path = getPathToModel()
     odapi = DetectorAPI(path_to_ckpt=model_path)
     threshold = 0.5
-    #cap = cv2.VideoCapture('TownCentreXVID.avi')
-    cap = cv2.VideoCapture('MOT17/train/MOT17-09-FRCNN/img1/%06d.jpg')
-
-    app = Flask(__name__)
+    cap = cv2.VideoCapture('input/TownCentreXVID.avi')
 
     im_size_x = int(1280/2)
     im_size_y = int(720/2)
@@ -93,20 +96,20 @@ if __name__ == "__main__":
                 cv2.rectangle(img,(box[1],box[0]),(box[3],box[2]),(255,0,0),2)
                 jsonCoord.append([box[1],box[0],box[3],box[2]])
 
-        # Here is where the json object is created and should be sent
-        if frameID == 5:
-            @app.route("/json", methods=['POST'])
-            def json_sendCoord():
-                message = jsonify({
-                    "frameNumber": frameID,
-                    "coords": jsonCoord
-                    })
-                return message
-            print(json_sendCoord())
-
-
         cv2.imshow("preview", img)
         key = cv2.waitKey(1)
         if key & 0xFF == ord('q'):
             break
 
+
+
+        # # Here is where the json object is created and should be sent
+        # if frameID == 5:
+        #     @app.route("/json", methods=['POST'])
+        #     def json_sendCoord():
+        #         message = jsonify({
+        #             "frameNumber": frameID,
+        #             "coords": jsonCoord
+        #             })
+        #         return message
+        #     print(json_sendCoord())
