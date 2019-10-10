@@ -16,15 +16,22 @@ else
 fi
 
 function install_env_and_packages(){
-   echo "Creating a folder for virtualenv called venv..." 
-   mkdir venv 
-   echo "Creating virtualenv..."
-   virtualenv -p python3 ./venv
-   chmod u+x ./venv/bin/activate 
-   source ./venv/bin/activate
-   echo "Installing PIP packages" 
-   pip install -r requirements.txt
-   deactivate 
+    echo "Creating a folder for virtualenv called venv..." 
+    mkdir venv 
+    echo
+    
+    echo "Creating folder for storing videos (input) and CNN models (models)"
+    mkdir input
+    mkdir models
+    echo 
+
+    echo "Creating virtualenv..."
+    virtualenv -p python3 ./venv
+    chmod u+x ./venv/bin/activate 
+    source ./venv/bin/activate
+    echo "Installing PIP packages" 
+    pip install -r requirements.txt
+    deactivate 
 }
 
 while true; do
