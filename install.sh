@@ -18,10 +18,12 @@ fi
 function install_env_and_packages(){
     echo "Creating a folder for virtualenv called venv..." 
     mkdir venv 
+    echo
     
     echo "Creating folder for storing videos (input) and CNN models (models)"
     mkdir input
     mkdir models
+    echo 
 
     echo "Creating virtualenv..."
     virtualenv -p python3 ./venv
