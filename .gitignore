@@ -111,5 +111,21 @@ node_modules/
 tensorTest.py
 MOT17/
 *COCO*
-*.avi 
-models/
+models/*
+input/*
+.vscode/
+
+#Video files
+*.3g2
+*.3gp
+*.asf
+*.asx
+*.avi
+*.flv
+*.mov
+*.mp4
+*.mpg
+*.rm
+*.swf
+*.vob
+*.wmv
