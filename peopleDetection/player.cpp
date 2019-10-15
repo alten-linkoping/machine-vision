@@ -3,7 +3,6 @@
 Player::Player(QObject *parent)
  : QThread(parent)
 {
-    //detector = new opticalFlow();
     stop = true;
 }
 
