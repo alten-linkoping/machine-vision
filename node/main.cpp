@@ -11,8 +11,6 @@
 #include <boost/algorithm/string.hpp> 
 
 
-
-
 std::vector<std::string> dataSets = {"MOT17-09-FRCNN", "MOT17-08-FRCNN", "MOT17-04-SDP"};
 
 std::string hello(int dataset)
@@ -21,9 +19,12 @@ std::string hello(int dataset)
 	// code 
 	std::vector<cv::String> fn;
 
-	cv::glob("public/"+ dataSets[dataset-1]+"/img1/00000*.jpg", fn, false);
+    //Playing the first 100 frames
+	cv::glob("public/"+ dataSets[dataset-1]+"/img1/0000*.jpg", fn, false);
 
 	HOGDetection HOG;
+	// It is possible to switch the HOG with a optical flow. For that, some small changes will need to be made below.
+
 	std::vector<std::vector<int> > tempBoxCoords;
 	std::string imageBoxCoordinates;
 	imageBoxCoordinates.append("{");
