@@ -18,9 +18,9 @@ This is a Qt application that visualizes object/people detections.
 ## Technological specification:
 
 
-* Client-side: [Qt] Version 5.13.1 
+* Client-side: [Qt](https://www.qt.io/) Version 5.13.1 
 
-* Editor: [Qt Creator] Versoin 4.10.0
+* Editor: [Qt Creator](https://www.qt.io/development-tools) Versoin 4.10.0
 
 * Algorithmic core: [C++](http://www.cplusplus.org/)
 
