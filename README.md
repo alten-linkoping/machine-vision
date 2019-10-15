@@ -17,7 +17,6 @@ This is a Qt application that visualizes object/people detections.
 
 ## Technological specification:
 
-
 * Client-side: [Qt](https://www.qt.io/) Version 5.13.1 
 
 * Editor: [Qt Creator](https://www.qt.io/development-tools) Versoin 4.10.0
@@ -36,6 +35,6 @@ This is a Qt application that visualizes object/people detections.
 
 * The PRO-file and project setting will need to be checked so that the OpenCV paths matches the local settings.
 
-** Set PKG_CONFIG_PATH to /usr/local/Cellar/opencv/4.1.1_2/lib/pkgconfig/
+* * Set PKG_CONFIG_PATH to /usr/local/Cellar/opencv/4.1.1_2/lib/pkgconfig/
 
-** Add to PATH usr/local/bin/
+* * Add usr/local/bin/ to PATH 
