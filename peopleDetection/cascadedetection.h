@@ -23,7 +23,6 @@ private:
     std::vector<int> levels;
     std::vector<double> weights;
 
-    void sendQImage();
 };
 
 

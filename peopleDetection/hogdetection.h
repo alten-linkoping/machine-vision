@@ -23,7 +23,6 @@ private:
     std::vector< double > foundScores;
     void adjustRect(cv::Rect & r) const;
 
-    void sendQImage();
 };
 
 #endif
