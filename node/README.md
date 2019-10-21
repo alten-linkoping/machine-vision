@@ -28,11 +28,11 @@ Server-side: Node.js
 
 Algorithmic core: C++
 
-Libray for image processing algorithms: OpenCV Version 3.4.x
+Libray for image processing algorithms: [OpenCV](https://opencv.org/) Version 3.4.x
 
-Dataset: [Multiple Object Tracking Benchmark](https://motchallenge.net/data/MOT18/)
+Dataset: [Multiple Object Tracking Benchmark](https://motchallenge.net/data/MOT17/)
 
-Task management: Jira
+Task management: [Jira](https://support.alten.se/projects/MAC/summary)
 
 ## Setup
 
