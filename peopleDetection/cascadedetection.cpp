@@ -3,15 +3,19 @@
 cascadeDetection::cascadeDetection(QObject *parent)
     : detector(parent)
 {
-    this->fullBodyClassifier.load("haarcascade_fullbody.xml");
-    this->upperBodyClassifier.load("haarcascade_upperbody.xml");
-    this->lowerBodyClassifier.load("haarcascade_lowerbody.xml");
+    std::cout << "Classifier: " << this->fullBodyClassifier.empty() << std::endl;
+
+    this->fullBodyClassifier.load("/Users/emmariedl/Desktop/Alten_C++/Projekt/machine-vision/peopleDetection/haarcascade_fullbody.xml");
+
+    std::cout << "Classifier: " << this->fullBodyClassifier.empty() << std::endl;
+    //this->upperBodyClassifier.load("haarcascade_upperbody.xml");
+    //this->lowerBodyClassifier.load("haarcascade_lowerbody.xml");
 }
 
 void cascadeDetection::setFrame(cv::Mat img)
 {
-    //cv::cvtColor(frame, this->frame, CV_BGR2GRAY);
-    this->frame = img;
+    //cv::cvtColor(img, this->frame, cv::COLOR_BGR2GRAY);
+    //this->frame = img;
     this->found.clear();
     this->levels.clear();
     this->weights.clear();
@@ -39,8 +43,8 @@ void cascadeDetection::detect()
     if(!found.empty()){
         for (auto i = 0; i < indices.size(); ++i)
         {
-            rectangle(this->frame,
-                        this->found[indices[i]].tl(), this->found[indices[i]].br(),
+            rectangle(this->fullsizeFrame,
+                        this->found[indices[i]].tl()*2, this->found[indices[i]].br()*2,
                         cv::Scalar(0, 255, 0), 2);
         }
     }
@@ -50,21 +54,11 @@ void cascadeDetection::detect()
 
 void cascadeDetection::recieveImage(cv::Mat img)
 {
-    cv::resize(img, this->frame, cv::Size(1920/2, 1080/2), 0, 0, cv::INTER_NEAREST);
+    cv::resize(img, this->frame, cv::Size(img.size()/2), 0, 0, cv::INTER_NEAREST);
     this->setFrame(this->frame);
+    this->fullsizeFrame = img;
 
     this->detect();
 }
 
-void cascadeDetection::sendQImage()
-{
-    if (this->frame.channels() == 3){
-        cv::cvtColor(this->frame, this->frame, cv::COLOR_BGR2RGB);
-        QFrame = QImage((const unsigned char*)(this->frame.data), this->frame.cols, this->frame.rows, QImage::Format_RGB888);
-    }
-    else
-    {
-        QFrame = QImage((const unsigned char*)(this->frame.data), this->frame.cols, this->frame.rows, QImage::Format_Indexed8);
-    }
-    emit this->processedImage(QFrame);
-}
+

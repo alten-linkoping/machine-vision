@@ -7,9 +7,9 @@ HOGDetection::HOGDetection(QObject *parent)
     this->hog.setSVMDetector(cv::HOGDescriptor::getDefaultPeopleDetector());
 }
 
-void HOGDetection::setFrame(cv::Mat frame)
+void HOGDetection::setFrame(cv::Mat img)
 {
-    cv::cvtColor(frame, this->frame, cv::COLOR_BGR2GRAY);
+    cv::cvtColor(img, this->frame, cv::COLOR_BGR2GRAY);
     this->found.clear();
     this->foundScores.clear();
 }
@@ -41,8 +41,8 @@ void HOGDetection::detect()
         for (int i = 0; i < indices.size(); ++i)
         {
             adjustRect(this->found[indices[i]]);
-            rectangle(this->frame,
-                            this->found[indices[i]].tl(), this->found[indices[i]].br(),
+            rectangle(this->fullsizeFrame,
+                            this->found[indices[i]].tl()*2, this->found[indices[i]].br()*2,
                             cv::Scalar(0, 255, 0), 2);
             }
     }
@@ -63,20 +63,8 @@ void HOGDetection::recieveImage(cv::Mat img)
 {
     cv::resize(img, this->frame, cv::Size(1920/2, 1080/2), 0, 0, cv::INTER_NEAREST);
     this->setFrame(this->frame);
+    this->fullsizeFrame = img;
 
     this->detect();
-}
-
-void HOGDetection::sendQImage()
-{
-    if (this->frame.channels() == 3){
-        cv::cvtColor(this->frame, this->frame, cv::COLOR_BGR2RGB);
-        QFrame = QImage((const unsigned char*)(this->frame.data), this->frame.cols, this->frame.rows, QImage::Format_RGB888);
-    }
-    else
-    {
-        QFrame = QImage((const unsigned char*)(this->frame.data), this->frame.cols, this->frame.rows, QImage::Format_Indexed8);
-    }
-    emit this->processedImage(QFrame);
 }
 

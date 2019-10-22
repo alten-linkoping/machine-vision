@@ -27,8 +27,8 @@ void opticalFlow::detectEdges()
                 cv::approxPolyDP(cv::Mat(this->contours[i]), contours_poly[i], 3, true);
                 cv::Rect box = cv::boundingRect(cv::Mat(contours_poly[i]));
                 if (box.width > 50 && box.height > 50) {
-                    rectangle(this->frame,
-                        box.tl(), box.br(),
+                    rectangle(this->fullsizeFrame,
+                        box.tl()*2, box.br()*2,
                         cv::Scalar(0, 255, 0), 2);
                       }
             }
@@ -107,21 +107,9 @@ void opticalFlow::drawOptFlowMap(double scale, int step, const cv::Scalar& color
 
 void opticalFlow::recieveImage(cv::Mat img)
 {
-    cv::resize(img, this->frame, cv::Size(1920/2, 1080/2), 0, 0, cv::INTER_NEAREST);
+    cv::resize(img, this->frame, cv::Size(img.size()/2), 0, 0, cv::INTER_NEAREST);
+    this->fullsizeFrame = img;
 
     this->calculateFlow();
-}
-
-void opticalFlow::sendQImage()
-{
-    if (this->frame.channels() == 3){
-        cv::cvtColor(this->frame, this->frame, cv::COLOR_BGR2RGB);
-        QFrame = QImage((const unsigned char*)(this->frame.data), this->frame.cols, this->frame.rows, QImage::Format_RGB888);
-    }
-    else
-    {
-        QFrame = QImage((const unsigned char*)(this->frame.data), this->frame.cols, this->frame.rows, QImage::Format_Indexed8);
-    }
-    emit this->processedImage(QFrame);
 }
 

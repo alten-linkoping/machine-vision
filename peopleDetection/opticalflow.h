@@ -22,7 +22,6 @@ private:					// The current frame
     void detectEdges();
     void drawHsv();
     void drawOptFlowMap(double scale, int step, const cv::Scalar& color);
-    void sendQImage();
 };
 
 

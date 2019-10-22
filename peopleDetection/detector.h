@@ -16,7 +16,9 @@ public:
 
     void virtual recieveImage(const cv::Mat image);
     cv::Mat frame;
+    cv::Mat fullsizeFrame;
     QImage QFrame;
+    void sendQImage();
 
 
 signals:
