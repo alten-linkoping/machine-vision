@@ -1,35 +1,49 @@
 # Machine Vision
-
 ## Functional specification:
+This is a web application that visualizes object detections of moving objects.
 
-This is a web application that visualizes object detections of cars. 
+### features
+Create an application that can visualize/play sequences from the dataset and overlays
 
-###  features
+Modify application to use network to identify moving objects in the sequences and display the object as an overlay on the sequence
 
-* Create an application that can visualize/play sequences from the dataset and overlays
-
-* Train a network to identify cars in the dataset
-
-* Modify application to use network to identify cars in the sequences and display the object as an overlay on the sequence
-
-* Add more functionality, either by adding more features in the current network or by adding new networks
-
-
+Add more functionality, either by adding more features in the current network or by adding a trained neural network.
 
 ## Technological specification:
+To provide the JavaScript implementation Node.js uses a C++ library called v8 . Node.js Addons are dynamically-linked shared objects that can be loaded into Node.js using the require() function. Since both v8 and Node.js Addons are written in c++ we can write Addons that interacts with v8 in its own language and treat them as ordinary Node.js modules.
 
-* Client-side: [React](https://reactjs.org/) and [Redux](https://redux.js.org/)
+We want to visualize the c++-calculations in a web browser but can't require it directly from the client-side. We can neither require "ordinary" modules from the client-side since the require method is not defined there. Instead we use Browserify to write code that uses require in the same as Node. We require "socket.io-client" to be able to receive the coordinates from the c++-calculations accessed in the server-side(Node.js).
 
-* Server-side: [Flask](http://flask.pocoo.org/)
+The C++ core has two options for detectioning.
+* The first option is a motion detector based on optical flow. 
+* The other one is a HOG detector using Daimlers people detector. (The one running now)
 
-* Algorithmic core: [C++](http://www.cplusplus.org/)
+Changing detection method is done in main.cpp by simly commenting out the HOG part and un-commenting the motion detection part in the hello() function. 
 
-* Training networks: [Python](https://www.python.org/)
+### Useful list
 
-* Dataset: [Waymo](https://waymo.com/open/data/)
+Client-side: JavaScript, HTML, CSS
 
-* Task management [Trello](https://trello.com/en)
+Server-side: Node.js
 
-* Code Review for Git [Gerrit](https://gerrit-review.googlesource.com/Documentation/)
+Algorithmic core: C++
 
+Libray for image processing algorithms: [OpenCV](https://opencv.org/) Version 3.4.x
 
+Dataset: [Multiple Object Tracking Benchmark](https://motchallenge.net/data/MOT17/)
+
+Task management: [Jira](https://support.alten.se/projects/MAC/summary)
+
+## Setup
+
+```bash
+# Node Packages
+npm install node-gyp
+npm install node-addon-api
+npm install sqlite3 
+
+#Start 
+node-gyp configure 
+node-gyp build
+node server.js
+```
